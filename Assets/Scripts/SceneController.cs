@@ -10,7 +10,6 @@ public class SceneController : MonoBehaviour
     [SerializeField] private TextMeshPro scoreLabel;
 
     private const int gridRows = 2;
-    private const int gridCols = 4;
     private const float offsetX = 2f;
     private const float offsetY = 2.5f;
 
@@ -33,8 +32,8 @@ public class SceneController : MonoBehaviour
     {
         scoreLabel.text = SCORE_LABEL + _score;
         Vector3 startPos = originalCard.transform.position;
-        int[] numbers = { 0, 0, 1, 1, 2, 2, 3, 3 };
-        numbers = shuffleArray(numbers);
+        int gridCols = images.Length;
+        int[] numbers = shuffleArray(defaultCards(gridCols));
         for (int i = 0; i < gridCols; i++)
         {
             for (int j = 0; j < gridRows; j++)
@@ -108,5 +107,18 @@ public class SceneController : MonoBehaviour
     public void restart ()
     {
         SceneManager.LoadScene("SampleScene");
+    }
+
+    private int[] defaultCards(int countCardTypes)
+    {
+        int countCards = countCardTypes * 2;
+        int[] cards = new int[countCards];
+        for (int i=0; i<countCards; i++)
+        {
+            cards[i] = i / 2;
+        }
+        
+
+        return cards;
     }
 }
